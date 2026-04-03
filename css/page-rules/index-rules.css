@@ -1,0 +1,20 @@
+/*Css rules for index.html*/
+#titulo-pagina {
+    margin-top: 1.5%;
+    margin-bottom: 1.5%;
+}
+
+/*Nav index rule*/
+#hipervinculos {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 1rem;
+}
+
+/*Paragraph separation*/
+#publicaciones h3, #publicaciones p {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
