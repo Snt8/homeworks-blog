@@ -1,16 +1,38 @@
 *{
     box-sizing: border-box;
+    font-family: 'Franklin Gothic Medium';
     margin: 0;
     padding: 0;
 }
 
 :root {
     --primary: #269634;
-    --text: #000;
-    --bg: #fff;
+    --text: #fff;
+    --bg: #000;
 }
 
-html {
+header {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 0.75rem;
+    background-color: var(--primary);
+    color: var(--text)
+}
+
+main {
     display: flex;
     justify-content: center;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+a {
+    color: var(--text);
+    text-decoration: none;
+    transform: transition 0.5s;
+}
+
+a:hover {
+    transform: scale(1.2);
 }
