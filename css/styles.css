@@ -36,3 +36,18 @@ a {
 a:hover {
     transform: scale(1.2);
 }
+
+/*Most general css rules*/
+
+#titulo-pagina {
+    margin-top: 1.5%;
+    margin-bottom: 1.5%;
+}
+
+/*Nav index rule*/
+#hipervinculos {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    margin-bottom: 1rem;
+}
