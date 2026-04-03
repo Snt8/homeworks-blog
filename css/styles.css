@@ -12,10 +12,6 @@
 }
 
 header {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    gap: 0.75rem;
     background-color: var(--primary);
     color: var(--text)
 }
@@ -38,10 +34,16 @@ a:hover {
 }
 
 /*Most general css rules*/
+#titulo-navegacion {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 0.75rem;
+}
 
 #titulo-pagina {
     margin-top: 1.5%;
-    margin-bottom: 1.5%;
+    margin-bottom: 1%;
 }
 
 /*Nav index rule*/
@@ -49,5 +51,5 @@ a:hover {
     display: flex;
     justify-content: center;
     gap: 2rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
 }

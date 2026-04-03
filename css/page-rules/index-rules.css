@@ -1,3 +1,10 @@
+#login {
+    display: flex;
+    justify-content: right;
+    gap: 1rem;  
+    margin-right: 1.5rem;
+}
+
 /*Paragraph separation*/
 #publicaciones h3, #publicaciones p {
     margin-top: 1rem;
