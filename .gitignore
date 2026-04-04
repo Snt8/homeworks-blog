@@ -1,0 +1,8 @@
+#configuracion
+.vscode
+.DS_Store
+Thumbs.db
+__pycache__
+
+#otros archivos
+database-test.json
