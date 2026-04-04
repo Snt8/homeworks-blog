@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta type="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog10mo - Registro</title>
+    <link rel="stylesheet" href="../../css/styles.css">
+    <link rel="stylesheet" href="../../css/page-rules/login-rules/register.css">
+</head>
+
+<body>
+    <header>
+        <h1>Registro</h1>
+    </header>
+
+    <main>
+        <div id="formulario-registro">
+            <form>
+                <!--User's name-->
+                <div>
+                    <label for="nombreUsuarioRegistro">Cree su nombre de usuario</label>
+                    <input type="text" id="nombreUsuarioRegistro" name="nombreUsuarioRegistro">
+                </div>
+
+                <!--Password-->
+                <div>
+                    <label for="passwordRegistro">Cree una contraseña</label>
+                    <input type="password" id="passwordRegistro" name="passwordRegistro">
+                </div>
+
+                <!--Send button-->
+                <button type="submit">Registrarse</button>
+            </form>
+
+        </div>
+    </main>
+
+    <script src="/js/api/login/enviar-datos-registro-api.js"></script>
+    <script src="/js/services/login/enviar-datos-registro-evento.js"></script>
+</body>
+
+</html>
