@@ -14,7 +14,7 @@ router: APIRouter = APIRouter()
 async def registrar_usuario(datos_usuario: um.Usuario):
     # Definimos la ruta absoluta para evitar errores de ejecución según el directorio
     base_path = os.path.dirname(os.path.abspath(__file__))
-    json_path = os.path.join(base_path, "../../usuarios_prueba.json")
+    json_path = os.path.join(base_path, "../../database-test.json")
 
     usuario_guardado: dict = {
         "nombre": datos_usuario.nombre, 
