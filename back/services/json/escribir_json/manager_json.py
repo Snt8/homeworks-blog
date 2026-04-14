@@ -1,4 +1,4 @@
-from services.json import convertor_json as cj
+from back.services.json.escribir_json import convertor_json as cj
 
 class ManagerJson:
     def __init__(self, convertor_json: cj.ConvertidorJson):
