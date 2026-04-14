@@ -46,24 +46,3 @@ a {
 a:hover {
     transform: scale(1.2);
 }
-
-/*Most general css rules*/
-#titulo-navegacion {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    gap: 0.75rem;
-}
-
-#titulo-pagina {
-    margin-top: 1.5%;
-    margin-bottom: 1%;
-}
-
-/*Nav index rule*/
-#hipervinculos {
-    display: flex;
-    justify-content: center;
-    gap: 2rem;
-    margin-bottom: 0.5rem;
-}
