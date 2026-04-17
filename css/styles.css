@@ -13,7 +13,7 @@
 
 header {
     background-color: var(--primary);
-    color: var(--text)
+    color: var(--text);
 }
 
 main {
@@ -24,17 +24,18 @@ main {
 }
 
 button {
-    text-align: center;
     border-radius: 1rem;
-    padding: 0.5rem;
-    background-color: #4b4949;
+    border-color: var(--primary);
+    padding: 1rem;
+    background-color: var(--primary);
     color: #fff;
     transition: transform 0.5s;
+    font-size: 1rem;
 }
 
 button:hover {
     transform: scale(1.1);
-    background-color: #2a2828;
+    background-color: #238830;
 }
 
 a {

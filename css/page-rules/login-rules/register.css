@@ -9,10 +9,29 @@ header h1 {
 }
 
 #formulario-registro {
-    background-color: #fdf9f9;
-    padding: 5rem;
-    border: 0.05rem solid #757575;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 2rem;
+    background-color: #fafafa;
+    padding: 7.5rem;
+    border: 0.05rem solid #979797;
     border-radius: 1rem;
+}
+
+/* Centrar los elementos internos del formulario */
+#formulario-registro form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Centrar el contenido de los contenedores de los inputs */
+#formulario-registro form div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 #formulario-registro label{
@@ -22,4 +41,5 @@ header h1 {
 #formulario-registro input{
     margin-top: 0.5rem;
     margin-bottom: 1.5rem;
+    padding: 0.5rem;
 }
