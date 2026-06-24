@@ -23,7 +23,7 @@ namespace back.Controllers
         {
             try
             {
-                var user = await _userService.RegisterUser(request.Name, request.Lastname, request.Email, request.Password);
+                var user = await _userService.RegisterUser(request);
                 return CreatedAtAction(nameof(Register), user);
             }
             catch (Exception ex)
@@ -38,7 +38,7 @@ namespace back.Controllers
         {
             try
             {
-                var user = await _userService.LoginUser(request.Email, request.Password);
+                var user = await _userService.LoginUser(request);
                 return Ok(user);
             }
             catch (UserNotFoundException ex)

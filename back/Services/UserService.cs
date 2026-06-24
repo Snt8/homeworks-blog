@@ -1,8 +1,10 @@
 ﻿using back.Interfaces;
 using back.Models;
 using back.Exceptions;
+using back.DTOs;
 using Microsoft.EntityFrameworkCore;
 using back.Data;
+using System.Security.Cryptography.X509Certificates;
 namespace back.Services
 {
     public class UserService : IUserService
@@ -13,15 +15,15 @@ namespace back.Services
             _passwordService = passwordService;
             _context = context;
         }
-        public async Task<User> RegisterUser(string name, string lastname, string email, string password)
+        public async Task<User> RegisterUser(UserRegisterDto userRegisterDto)
         {
             //Create the user's model
             var user = new User
             {
-                Name = name,
-                Lastname = lastname,
-                Email = email,
-                PasswordHash = _passwordService.Hash(password)
+                Name = userRegisterDto.Name,
+                Lastname = userRegisterDto.Lastname,
+                Email = userRegisterDto.Email,
+                PasswordHash = _passwordService.Hash(userRegisterDto.Password)
             };
 
             //Add to the Data Base
@@ -35,17 +37,17 @@ namespace back.Services
             return user;
         }
 
-        public async Task<User> LoginUser(string email, string password)
+        public async Task<User> LoginUser(UserLoginDto userLoginDto)
         {
             //Get the user from the Data Base
-            var userDatabase = await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+            var userDatabase = await _context.Users.FirstOrDefaultAsync(u => u.Email == userLoginDto.Email);
 
             //Check if the user exists
             if (userDatabase == null)
                 throw new UserNotFoundException("User not found");
 
             //Verify the password
-            bool correctPassword = _passwordService.Verify(password, userDatabase.PasswordHash);
+            bool correctPassword = _passwordService.Verify(userLoginDto.Password, userDatabase.PasswordHash);
             if (!correctPassword)
                 throw new UserIncorrectPasswordException("Incorrect password");
 
