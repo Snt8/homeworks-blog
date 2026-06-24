@@ -2,6 +2,7 @@
 using back.Models;
 using back.Exceptions;
 using Microsoft.EntityFrameworkCore;
+using back.Data;
 namespace back.Services
 {
     public class UserService : IUserService
