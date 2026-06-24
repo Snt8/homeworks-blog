@@ -1,7 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using back.Models;
 
-public class ApplicationDbContext : DbContext
+namespace back.Data
+{
+    public class ApplicationDbContext : DbContext
 {
     // Configuration
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
@@ -13,4 +15,5 @@ public class ApplicationDbContext : DbContext
     public DbSet<Course> Courses { get; set; }
     public DbSet<Homework> Homeworks { get; set; }
     public DbSet<Comment> Comments { get; set; }
+    }
 }
