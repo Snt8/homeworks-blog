@@ -11,6 +11,7 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 
 //Services registration (Dependency Injection)
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IHomeworkService, HomeworkService>();
 builder.Services.AddScoped<IPasswordService, PasswordService>();
 
 //Add Controllers support
