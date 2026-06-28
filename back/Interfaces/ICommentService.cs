@@ -6,7 +6,7 @@ namespace back.Interfaces
     public interface ICommentService
     {
         public Task<Comment> CreateComment(CommentDto commentDto);
-        public Task<List<Comment>> GetAllComment(int courseId);
+        public Task<List<Comment>> GetAllComments(int homeworkId);
         public Task<Comment> UpdateComment(CommentDto commentDto, int commentId);
         public Task<bool> DeleteComment(int commentId, int authorId);
     }

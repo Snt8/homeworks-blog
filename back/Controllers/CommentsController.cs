@@ -35,7 +35,7 @@ namespace back.Controllers
         {
             try
             {
-                var comments = await _commentService.GetAllComment(homeworkId);
+                var comments = await _commentService.GetAllComments(homeworkId);
                 return Ok(comments);
             }
             catch (Exception ex)
