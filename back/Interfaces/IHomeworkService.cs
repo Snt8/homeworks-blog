@@ -7,6 +7,6 @@ namespace back.Interfaces
         public Task<Homework> CreateHomework(HomeworkDto homeworkDto);
         public Task<Homework> UpdateHomework(int idHomework, HomeworkDto homeworkDto);
         public Task<List<Homework>> LookUpHomeworks(int courseId);
-        public Task<Homework> DeleteHomework(int idHomework);
+        public Task<DeletedHomeworkDto> DeleteHomework(int idHomework);
     }
 }

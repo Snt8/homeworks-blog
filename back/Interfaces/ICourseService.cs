@@ -9,6 +9,6 @@ namespace back.Interfaces
         public Task<Course> GetCourseById(int courseId);
         public Task<List<Course>> GetAllCourses();
         public Task<Course> UpdateCourse(int courseId, int ownerId, CourseDto courseDto);  
-        public Task<Course> DeleteCourse(int courseId, int ownerId);
+        public Task<DeletedCourseDto> DeleteCourse(int courseId, int ownerId);
     }
 }

@@ -8,6 +8,6 @@ namespace back.Interfaces
         public Task<Comment> CreateComment(CommentDto commentDto);
         public Task<List<Comment>> GetAllComments(int homeworkId);
         public Task<Comment> UpdateComment(CommentDto commentDto, int commentId);
-        public Task<bool> DeleteComment(int commentId, int authorId);
+        public Task<DeletedCommentDto> DeleteComment(int commentId, int authorId);
     }
 }

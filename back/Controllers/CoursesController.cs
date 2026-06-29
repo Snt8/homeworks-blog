@@ -77,7 +77,7 @@ namespace back.Controllers
 
         // DELETE /api/courses/{courseId}
         [HttpDelete("{courseId}")]
-        public async Task<ActionResult<Course>> Delete(int courseId, [FromQuery] int ownerId)
+        public async Task<ActionResult<DeletedCourseDto>> Delete(int courseId, [FromQuery] int ownerId)
         {
             try
             {

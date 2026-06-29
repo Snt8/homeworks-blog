@@ -48,7 +48,7 @@ namespace back.Services
             return comment;
         }
 
-        public async Task<bool> DeleteComment(int commentId, int authorId)
+        public async Task<DeletedCommentDto> DeleteComment(int commentId, int authorId)
         {
             var comment = await _context.Comments.Where(c => c.Id == commentId).FirstOrDefaultAsync();
             if(comment == null)
@@ -61,7 +61,15 @@ namespace back.Services
             }
             _context.Comments.Remove(comment);
             await _context.SaveChangesAsync();
-            return true;
+            return new DeletedCommentDto
+            {
+                Id = comment.Id,
+                Name = comment.Content,
+                AuthorId = comment.UserId,
+                HomeworkId = comment.HomeworkId,
+                Message = "Comment has been successfully deleted",
+                DeletedAt = DateTime.UtcNow
+            };
         }
     }
 }

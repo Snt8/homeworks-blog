@@ -81,7 +81,7 @@ namespace back.Services
             return course;
         }
 
-        public async Task<Course> DeleteCourse(int courseId, int ownerId)
+        public async Task<DeletedCourseDto> DeleteCourse(int courseId, int ownerId)
         {
             var course = await _context.Courses.Where(c => c.Id == courseId).FirstOrDefaultAsync();
             if(course == null)
@@ -96,7 +96,14 @@ namespace back.Services
             _context.Courses.Remove(course);
             await _context.SaveChangesAsync();
             //Return the course deleted
-            return course;
+            return new DeletedCourseDto
+            {
+                Id = course.Id,
+                Name = course.Name,
+                OwnerId = course.OwnerId,
+                Message = $"Course {course.Name} has been successfully deleted",
+                DeletedAt = DateTime.UtcNow
+            };
         }
     }
 }

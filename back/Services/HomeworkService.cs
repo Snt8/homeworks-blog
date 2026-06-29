@@ -55,8 +55,8 @@ namespace back.Services
             return homeworksList;
         }
 
-        public async Task<Homework> DeleteHomework(int idHomework) 
-        { 
+        public async Task<DeletedHomeworkDto> DeleteHomework(int idHomework)
+        {
             var homework = await _context.Homeworks.FirstOrDefaultAsync(h => h.Id == idHomework);
             //Check if the homework exists
             if(homework == null)
@@ -67,7 +67,15 @@ namespace back.Services
             _context.Homeworks.Remove(homework);
             //Save the changes and return the homework was removed
             await _context.SaveChangesAsync();
-            return homework;
+            return new DeletedHomeworkDto
+            {
+                Id = homework.Id,
+                Name = homework.Subject,
+                Description = homework.Description,
+                CourseId = homework.CourseId,
+                Message = $"Homework {homework.Subject} has been successfully deleted",
+                DeletedAt = DateTime.UtcNow
+            };
         }
     }
 }
