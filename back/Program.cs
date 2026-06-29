@@ -16,8 +16,12 @@ builder.Services.AddScoped<ICourseService, CourseService>();
 builder.Services.AddScoped<IPasswordService, PasswordService>();
 builder.Services.AddScoped<ICommentService, CommentService>();
 
-//Add Controllers support
-builder.Services.AddControllers();
+//Add Controllers support with JSON case-insensitive configuration
+builder.Services.AddControllers()
+    .AddJsonOptions(options =>
+    {
+        options.JsonSerializerOptions.PropertyNameCaseInsensitive = true;
+    });
 
 //CORS configuration for frontend communication
 builder.Services.AddCors(options =>
