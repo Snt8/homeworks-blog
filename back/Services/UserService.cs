@@ -12,7 +12,8 @@ namespace back.Services
         private readonly IPasswordService _passwordService;
         private readonly ApplicationDbContext _context;
         private const int withoutCourseUserId = 0;
-        public UserService(IPasswordService passwordService, ApplicationDbContext context) { 
+        public UserService(IPasswordService passwordService, ApplicationDbContext context)
+        {
             _passwordService = passwordService;
             _context = context;
         }
@@ -66,16 +67,16 @@ namespace back.Services
         {
             var user = await _context.Users.Where(u => u.Id == userId).FirstOrDefaultAsync();
             var course = await _context.Courses.Where(c => c.Id == courseId).FirstOrDefaultAsync();
-            if(user == null)
+            if (user == null)
             {
                 throw new UserNotFoundException("User is not found");
             }
-            if(course == null)
+            if (course == null)
             {
                 throw new CourseNotFoundException("Course is not found");
             }
             //Check if the user is already in a course
-            if(user.CourseId != withoutCourseUserId)
+            if (user.CourseId != withoutCourseUserId)
             {
                 throw new UserIsAlreadyInACourse("User is already in a course");
             }
@@ -90,7 +91,7 @@ namespace back.Services
         public async Task<User> UpdateUser(UserUpdateDto userData, int userId)
         {
             var user = await _context.Users.Where(u => u.Id == userId).FirstOrDefaultAsync();
-            if(user == null)
+            if (user == null)
             {
                 throw new UserNotFoundException("User is not found");
             }
@@ -122,13 +123,12 @@ namespace back.Services
         public async Task<DeletedUserDto> DeleteUser(int userId)
         {
             var user = await _context.Users.Where(u => u.Id == userId).FirstOrDefaultAsync();
-            if(user == null)
+            if (user == null)
             {
                 throw new UserNotFoundException("User is not found");
             }
             _context.Users.Remove(user);
             await _context.SaveChangesAsync();
-
             return new DeletedUserDto
             {
                 Id = user.Id,
