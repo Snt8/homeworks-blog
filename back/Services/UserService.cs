@@ -60,5 +60,48 @@ namespace back.Services
                 Email = userDatabase.Email
             };
         }
+
+        public async Task<User> UpdateUser(UserUpdateDto userData, int userId)
+        {
+            var user = await _context.Users.Where(u => u.Id == userId).FirstOrDefaultAsync();
+            if(user == null)
+            {
+                throw new UserNotFoundException("User is not found");
+            }
+            //Verify attributes the user could change
+            if (!string.IsNullOrEmpty(userData.Name))
+            {
+                user.Name = userData.Name;
+            }
+            if (!string.IsNullOrEmpty(userData.LastName))
+            {
+                user.Lastname = userData.LastName;
+            }
+            if (!string.IsNullOrEmpty(userData.Email))
+            {
+                user.Email = userData.Email;
+            }
+            if (!string.IsNullOrEmpty(userData.Password))
+            {
+                var newPassword = _passwordService.Hash(userData.Password);
+                user.PasswordHash = newPassword;
+            }
+
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
+            return user;
+        }
+
+        public async Task<bool> DeleteUser(int userId)
+        {
+            var user = await _context.Users.Where(u => u.Id == userId).FirstOrDefaultAsync();
+            if(user == null)
+            {
+                return false;
+            }
+            _context.Users.Remove(user);
+            await _context.SaveChangesAsync();
+            return true;
+        }
     }
 }
