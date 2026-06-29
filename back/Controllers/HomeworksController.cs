@@ -68,7 +68,7 @@ namespace back.Controllers
 
         //DELETE api/homeworks/delete
         [HttpDelete("delete")]
-        public async Task<ActionResult<Homework>> Delete([FromQuery] int idHomework)
+        public async Task<ActionResult<DeletedHomeworkDto>> Delete([FromQuery] int idHomework)
         {
             try
             {

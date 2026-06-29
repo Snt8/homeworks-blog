@@ -61,7 +61,7 @@ namespace back.Controllers
 
         //DELETE /api/comments/delete?commentId={commentId}&authorId={authorId}
         [HttpDelete("delete")]
-        public async Task<ActionResult<bool>> Delete([FromQuery] int commentId, [FromQuery] int authorId)
+        public async Task<ActionResult<DeletedCommentDto>> Delete([FromQuery] int commentId, [FromQuery] int authorId)
         {
             try
             {
