@@ -1,4 +1,6 @@
-﻿namespace back.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace back.Models
 {
     public class User
     {
@@ -9,8 +11,9 @@
         public string Email { get; set; }
         public string PasswordHash { get; set; }
         // User's course
-        public int CourseId { get; set; }
+        [ForeignKey("CourseId")]
         public Course Course { get; set; }
+        public int CourseId { get; set; }   
 
     }
 }
