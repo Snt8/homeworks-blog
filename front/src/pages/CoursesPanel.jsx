@@ -6,6 +6,8 @@ export default function CoursesPanel() {
     const [courses, setCourses] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState('')
+    const [courseCreation, setCourseCreation] = useState(false)
+    const [courseName, setCourseName] = useState('')
 
     useEffect(() => {
         fetchCourses()
@@ -16,7 +18,7 @@ export default function CoursesPanel() {
             setLoading(true)
             setError('')
 
-            const response = await fetch(API_ENDPOINTS.getCourses || `${API_ENDPOINTS.login.split('/api')[0]}/api/courses`)
+            const response = await fetch(API_ENDPOINTS.getCourses)
 
             if (!response.ok) {
                 throw new Error(`Failed to fetch courses: ${response.status}`)
@@ -29,6 +31,31 @@ export default function CoursesPanel() {
             console.error('Fetch courses error:', err)
         } finally {
             setLoading(false)
+        }
+    }
+
+    const createCourse = async (e) => {
+        e.preventDefault()
+        const user = JSON.parse(localStorage.getItem('user'))
+        const ownerId = user.id
+        try {
+            const response = await fetch(API_ENDPOINTS.createCourse, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name: courseName, ownerId })
+            })
+
+            if (!response.ok) {
+                throw new Error(`Course creation failed: ${response.status}`)
+            }
+
+            const data = await response.json()
+            setCourses(prev => [...prev, data])
+            setCourseName('')
+            setCourseCreation(false)
+        } catch (err) {
+            setError(err.message || 'Course creation failed')
+            console.error('Create course error:', err)
         }
     }
 
@@ -48,6 +75,28 @@ export default function CoursesPanel() {
 
             {/* Main Content */}
             <main className="flex-1 max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+                <div>
+                    <button onClick={() => setCourseCreation(true)}>Create Course</button>
+                </div>
+
+                {courseCreation && (
+                    <div>
+                        <form onSubmit={createCourse}>
+                            <div>
+                                <label>Course name</label>
+                                <input
+                                    type='text'
+                                    value={courseName}
+                                    onChange={(e) => setCourseName(e.target.value)}
+                                    placeholder='Course Name'
+                                    required
+                                />
+                            </div>
+                            <button type='submit'>Create</button>
+                        </form>
+                    </div>
+                )}
+
                 {loading && (
                     <div className="flex justify-center items-center py-12">
                         <p className="text-slate-400">Loading courses...</p>
