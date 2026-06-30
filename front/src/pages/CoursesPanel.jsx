@@ -75,24 +75,36 @@ export default function CoursesPanel() {
 
             {/* Main Content */}
             <main className="flex-1 max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
-                <div>
-                    <button onClick={() => setCourseCreation(true)}>Create Course</button>
+                <div className="mb-8">
+                    <button
+                        onClick={() => setCourseCreation(!courseCreation)}
+                        className="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-500 text-white font-semibold rounded-lg transition duration-200 shadow-lg hover:shadow-indigo-500/50 text-sm"
+                    >
+                        {courseCreation ? 'Cancel' : '+ Create Course'}
+                    </button>
                 </div>
 
                 {courseCreation && (
-                    <div>
-                        <form onSubmit={createCourse}>
+                    <div className="bg-slate-900 border border-slate-700 rounded-xl p-6 mb-8">
+                        <h2 className="text-lg font-bold text-slate-100 mb-4">New Course</h2>
+                        <form onSubmit={createCourse} className="space-y-4">
                             <div>
-                                <label>Course name</label>
+                                <label className="block text-sm font-semibold text-slate-300 mb-2">Course name</label>
                                 <input
                                     type='text'
                                     value={courseName}
                                     onChange={(e) => setCourseName(e.target.value)}
                                     placeholder='Course Name'
                                     required
+                                    className="w-full px-4 py-2.5 bg-slate-800 border border-slate-600 rounded-lg text-slate-100 placeholder-slate-500 focus:outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-500/20 transition text-sm"
                                 />
                             </div>
-                            <button type='submit'>Create</button>
+                            <button
+                                type='submit'
+                                className="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-lg transition duration-200 shadow-lg hover:shadow-emerald-500/50 text-sm"
+                            >
+                                Create
+                            </button>
                         </form>
                     </div>
                 )}
