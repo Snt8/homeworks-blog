@@ -34,6 +34,7 @@ export default function Register() {
             setLastname('')
             setEmail('')
             setPassword('')
+            localStorage.setItem('user', JSON.stringify(data))
 
             setTimeout(() => window.location.href = '/login', 2000)
         } catch (err) {
