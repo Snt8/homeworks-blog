@@ -1,4 +1,5 @@
 ﻿using back.DTOs;
+using back.Exceptions;
 using back.Interfaces;
 using back.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -24,9 +25,13 @@ namespace back.Controllers
                 var course = await _courseService.CreateCourse(request);
                 return CreatedAtAction(nameof(GetById), new { courseId = course.Id }, course);
             }
+            catch (CourseSameNameException ex)
+            {
+                return Conflict(new { message = ex.Message });
+            }
             catch (Exception ex)
             {
-                return BadRequest(new { message = ex.Message });
+                return StatusCode(500, new { message = ex.Message });
             }
         }
 
@@ -39,9 +44,13 @@ namespace back.Controllers
                 var course = await _courseService.GetCourseById(courseId);
                 return Ok(course);
             }
+            catch (CourseNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
             catch (Exception ex)
             {
-                return BadRequest(new { message = ex.Message });
+                return StatusCode(500, new { message = ex.Message });
             }
         }
 
@@ -56,7 +65,7 @@ namespace back.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(new { message = ex.Message });
+                return StatusCode(500, new { message = ex.Message });
             }
         }
 
@@ -69,9 +78,21 @@ namespace back.Controllers
                 var updated = await _courseService.UpdateCourse(courseId, ownerId, request);
                 return Ok(updated);
             }
+            catch (CourseNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+            catch (CourseWrongOwnerException ex)
+            {
+                return Forbid();
+            }
+            catch (CourseSameNameException ex)
+            {
+                return Conflict(new { message = ex.Message });
+            }
             catch (Exception ex)
             {
-                return BadRequest(new { message = ex.Message });
+                return StatusCode(500, new { message = ex.Message });
             }
         }
 
@@ -84,9 +105,17 @@ namespace back.Controllers
                 var deleted = await _courseService.DeleteCourse(courseId, ownerId);
                 return Ok(deleted);
             }
+            catch (CourseNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+            catch (CourseWrongOwnerException ex)
+            {
+                return Forbid();
+            }
             catch (Exception ex)
             {
-                return BadRequest(new { message = ex.Message });
+                return StatusCode(500, new { message = ex.Message });
             }
         }
     }
