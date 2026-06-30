@@ -1,7 +1,9 @@
-﻿using back.Interfaces;
+﻿using back.DTOs;
+using back.Exceptions;
+using back.Interfaces;
 using back.Models;
-using back.DTOs;
 using Microsoft.AspNetCore.Mvc;
+
 namespace back.Controllers
 {
     [ApiController]
@@ -25,7 +27,7 @@ namespace back.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(new { message = ex.Message });
+                return StatusCode(500, new { message = ex.Message });
             }
         }
 
@@ -40,7 +42,7 @@ namespace back.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(new { message = ex.Message });
+                return StatusCode(500, new { message = ex.Message });
             }
         }
 
@@ -53,9 +55,13 @@ namespace back.Controllers
                 var comment = await _commentService.UpdateComment(request, commentId);
                 return Ok(comment);
             }
+            catch (CommentNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
             catch (Exception ex)
             {
-                return BadRequest(new { message = ex.Message });
+                return StatusCode(500, new { message = ex.Message });
             }
         }
 
@@ -68,9 +74,17 @@ namespace back.Controllers
                 var deleteStatus = await _commentService.DeleteComment(commentId, authorId);
                 return Ok(deleteStatus);
             }
+            catch (CommentNotFoundException ex)
+            {
+                return NotFound(new { message = ex.Message });
+            }
+            catch (CommentWrongAuthorIdException ex)
+            {
+                return StatusCode(403, new { message = ex.Message });
+            }
             catch (Exception ex)
             {
-                return BadRequest(new { message = ex.Message});
+                return StatusCode(500, new { message = ex.Message });
             }
         }
     }
