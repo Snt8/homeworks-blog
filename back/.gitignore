@@ -5,6 +5,7 @@ appsettings.Development.json
 # Build
 bin/
 obj/
+publish/
 *.user
 
 # IDE
