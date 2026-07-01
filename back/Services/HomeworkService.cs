@@ -20,7 +20,7 @@ namespace back.Services
             //Assign the attributes value for the Homework DTO
             homework.Subject = homeworkDto.Subject;
             homework.Description = homeworkDto.Description;
-            homework.DueDate = homeworkDto.DueDate;
+            homework.DueDate = DateTime.SpecifyKind(homeworkDto.DueDate, DateTimeKind.Utc);
             homework.CourseId = homeworkDto.CourseId;
             //Create the homework into database 
             _context.Homeworks.Add(homework);
@@ -41,7 +41,7 @@ namespace back.Services
             //Assign the new homework data
             homework.Subject = homeworkDto.Subject;
             homework.Description = homeworkDto.Description;
-            homework.DueDate = homeworkDto.DueDate;
+            homework.DueDate = DateTime.SpecifyKind(homeworkDto.DueDate, DateTimeKind.Utc);
             //Update the homework in the database
             _context.Homeworks.Update(homework);
             //Save the changes and return the homework updated
