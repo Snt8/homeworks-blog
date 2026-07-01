@@ -9,6 +9,10 @@ export default function BlogPanel() {
     const [homeworks, setHomeworks] = useState([])
     const [loading, setLoading] = useState(true)
     const [error, setError] = useState('')
+    const [homeworkCreation, setHomeworkCreation] = useState(false)
+    const [homeworkSubject, setHomeworkSubject] = useState('')
+    const [homeworkDescription, setHomeworkDescription] = useState('')
+    const [homeworkDueDate, setHomeworkDueDate] = useState()
 
     useEffect(() => {
         if (courseId) {
@@ -21,7 +25,7 @@ export default function BlogPanel() {
             setLoading(true)
             setError('')
 
-            const url = `${API_ENDPOINTS.getCourseHomeworks}`.replace('{courseId}', courseId)
+            const url = `${API_ENDPOINTS.getCourseHomeworks}?courseId=${courseId}`
             const response = await fetch(url)
 
             if (!response.ok) {
@@ -35,6 +39,37 @@ export default function BlogPanel() {
             console.error('Fetch homeworks error:', err)
         } finally {
             setLoading(false)
+        }
+    }
+
+    const createHomework = async (e) => {
+        e.preventDefault()
+        try {
+            setError('')
+            const response = await fetch(API_ENDPOINTS.createHomework, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ 
+                    'subject': homeworkSubject, 
+                    'description': homeworkDescription, 
+                    'dueDate': homeworkDueDate,
+                    'courseId': Number(courseId)
+                })
+            })
+
+            if (!response.ok) {
+                throw new Error(`Course creation failed: ${response.status}`)
+            }
+
+            const data = await response.json()
+            setHomeworkSubject('')
+            setHomeworkDescription('')
+            setHomeworkDueDate(null)
+            setHomeworkCreation(false)
+            await fetchHomeworks()
+        } catch (err) {
+            setError(err.message || 'Course creation failed')
+            console.error('Create course error:', err)
         }
     }
 
@@ -82,6 +117,48 @@ export default function BlogPanel() {
                 {loading && (
                     <div className="flex justify-center items-center py-12">
                         <p className="text-slate-400">Loading homeworks...</p>
+                    </div>
+                )}       
+                <section>
+                    <button onClick={() => setHomeworkCreation(true)}>Create Homework</button>
+                </section>
+
+                {homeworkCreation && (
+                    <div>
+                        <form onSubmit={(e) => createHomework(e)}>
+                            <div>
+                                <label>Homework subject</label>
+                                <input 
+                                    type='text'
+                                    value={homeworkSubject}
+                                    placeholder='math'
+                                    onChange={(e) => setHomeworkSubject(e.target.value)}
+                                    required
+                                />
+                            </div>
+                            <div>
+                                <label>Homework description</label>
+                                <input
+                                    type='text'
+                                    value={homeworkDescription}
+                                    placeholder='homework instructions'
+                                    onChange={(e) => setHomeworkDescription(e.target.value)}                        
+                                />
+                            </div>
+                            <div>
+                                <label>Homework due date</label>
+                                <input 
+                                    type='date'
+                                    value={homeworkDueDate}
+                                    placeholder='27/06'
+                                    onChange={(e) => setHomeworkDueDate(e.target.value)}
+                                    required
+                                />
+                            </div>
+                            <div>
+                                <button type='submit'>Create</button>
+                            </div>
+                        </form>
                     </div>
                 )}
 
