@@ -118,46 +118,57 @@ export default function BlogPanel() {
                     <div className="flex justify-center items-center py-12">
                         <p className="text-slate-400">Loading homeworks...</p>
                     </div>
-                )}       
-                <section>
-                    <button onClick={() => setHomeworkCreation(true)}>Create Homework</button>
-                </section>
+                )}
+                <div className="mb-8">
+                    <button
+                        onClick={() => setHomeworkCreation(!homeworkCreation)}
+                        className="px-5 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-lg transition duration-200 shadow-lg hover:shadow-emerald-500/50 text-sm"
+                    >
+                        {homeworkCreation ? 'Cancel' : '+ Create Homework'}
+                    </button>
+                </div>
 
                 {homeworkCreation && (
-                    <div>
-                        <form onSubmit={(e) => createHomework(e)}>
+                    <div className="bg-slate-900 border border-slate-700 rounded-xl p-6 mb-8">
+                        <h2 className="text-lg font-bold text-slate-100 mb-4">New Homework</h2>
+                        <form onSubmit={(e) => createHomework(e)} className="space-y-4">
                             <div>
-                                <label>Homework subject</label>
-                                <input 
+                                <label className="block text-sm font-semibold text-slate-300 mb-2">Homework subject</label>
+                                <input
                                     type='text'
                                     value={homeworkSubject}
                                     placeholder='math'
                                     onChange={(e) => setHomeworkSubject(e.target.value)}
                                     required
+                                    className="w-full px-4 py-2.5 bg-slate-800 border border-slate-600 rounded-lg text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition text-sm"
                                 />
                             </div>
                             <div>
-                                <label>Homework description</label>
+                                <label className="block text-sm font-semibold text-slate-300 mb-2">Homework description</label>
                                 <input
                                     type='text'
                                     value={homeworkDescription}
                                     placeholder='homework instructions'
-                                    onChange={(e) => setHomeworkDescription(e.target.value)}                        
+                                    onChange={(e) => setHomeworkDescription(e.target.value)}
+                                    className="w-full px-4 py-2.5 bg-slate-800 border border-slate-600 rounded-lg text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition text-sm"
                                 />
                             </div>
                             <div>
-                                <label>Homework due date</label>
-                                <input 
+                                <label className="block text-sm font-semibold text-slate-300 mb-2">Homework due date</label>
+                                <input
                                     type='date'
                                     value={homeworkDueDate}
-                                    placeholder='27/06'
                                     onChange={(e) => setHomeworkDueDate(e.target.value)}
                                     required
+                                    className="w-full px-4 py-2.5 bg-slate-800 border border-slate-600 rounded-lg text-slate-100 placeholder-slate-500 focus:outline-none focus:border-emerald-500 focus:ring-2 focus:ring-emerald-500/20 transition text-sm [color-scheme:dark]"
                                 />
                             </div>
-                            <div>
-                                <button type='submit'>Create</button>
-                            </div>
+                            <button
+                                type='submit'
+                                className="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-500 text-white font-semibold rounded-lg transition duration-200 shadow-lg hover:shadow-emerald-500/50 text-sm"
+                            >
+                                Create
+                            </button>
                         </form>
                     </div>
                 )}
